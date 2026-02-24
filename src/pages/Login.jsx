@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Eye, EyeOff } from 'lucide-react';
 import { linkStyle } from '../lib/colors';
@@ -16,6 +16,40 @@ const loginBtnStyle = {
   width: '100%',
 };
 
+// Force button styles via DOM to beat Kajabi !important overrides
+function useForceButtonStyle(ref) {
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const apply = () => {
+      el.style.setProperty('background', '#3B8EC4', 'important');
+      el.style.setProperty('background-color', '#3B8EC4', 'important');
+      el.style.setProperty('color', '#FFFFFF', 'important');
+      el.style.setProperty('border', 'none', 'important');
+      el.style.setProperty('border-radius', '8px', 'important');
+      el.style.setProperty('padding', '10px 20px', 'important');
+      el.style.setProperty('font-size', '14px', 'important');
+      el.style.setProperty('font-weight', '600', 'important');
+      el.style.setProperty('width', '100%', 'important');
+      el.style.setProperty('opacity', el.disabled ? '0.6' : '1', 'important');
+    };
+    apply();
+    // Re-apply on a short delay to beat late-loading Kajabi CSS
+    const t1 = setTimeout(apply, 100);
+    const t2 = setTimeout(apply, 500);
+    const t3 = setTimeout(apply, 1500);
+    // Also observe for attribute changes (Kajabi may modify style attr)
+    const observer = new MutationObserver(apply);
+    observer.observe(el, { attributes: true, attributeFilter: ['style', 'class'] });
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+      observer.disconnect();
+    };
+  });
+}
+
 const US_STATES = [
   'Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut',
   'Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa',
@@ -30,6 +64,10 @@ const US_STATES = [
 export default function Login() {
   const { signIn, signUp, resetPassword, updatePassword, verifyNotOldPassword, isRecovery, setIsRecovery } = useAuth();
   const [mode, setMode] = useState('signin');
+  const mainBtnRef = useRef(null);
+  const recoveryBtnRef = useRef(null);
+  useForceButtonStyle(mainBtnRef);
+  useForceButtonStyle(recoveryBtnRef);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [signupConfirmPassword, setSignupConfirmPassword] = useState('');
@@ -202,6 +240,7 @@ export default function Login() {
             {message && <p className="form-success">{message}</p>}
 
             <button
+              ref={recoveryBtnRef}
               type="submit"
               className="btn-primary btn-full"
               style={loginBtnStyle}
@@ -397,7 +436,7 @@ export default function Login() {
           {error && <p className="form-error">{error}</p>}
           {message && <p className="form-success">{message}</p>}
 
-          <button type="submit" className="btn-primary btn-full" style={loginBtnStyle} disabled={loading}>
+          <button ref={mainBtnRef} type="submit" className="btn-primary btn-full" style={loginBtnStyle} disabled={loading}>
             {loading
               ? 'Please wait...'
               : mode === 'forgot'
