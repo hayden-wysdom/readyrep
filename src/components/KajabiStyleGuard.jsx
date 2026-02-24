@@ -3,154 +3,106 @@ import { useEffect } from 'react';
 /**
  * KajabiStyleGuard
  *
- * Injects a <style> tag into the document <head> with ultra-high specificity
- * selectors and !important to permanently override Kajabi's injected CSS.
- * Also re-injects if Kajabi removes or overrides it.
+ * Runs a permanent interval that checks if Kajabi has overridden
+ * our styles and fixes them. Also re-applies on visibilitychange
+ * (when user closes and reopens the Kajabi app).
  */
-
-const GUARD_ID = 'kajabi-style-guard';
-
-const guardCSS = `
-  /* Navbar header - force blue background */
-  .navbar,
-  div.navbar,
-  .app .navbar,
-  .navbar-wrapper .navbar,
-  .navbar-wrapper > .navbar,
-  div.navbar-wrapper div.navbar,
-  [class*="navbar"]:not(.navbar-tab-bar):not(.navbar-tab-bar-inner):not(.navbar-wrapper):not(.navbar-inner):not(.navbar-brand):not(.navbar-actions) {
-    background: #3B8EC4 !important;
-    background-color: #3B8EC4 !important;
+function applyNavbarFix() {
+  const navbar = document.querySelector('.navbar');
+  if (!navbar) return;
+  const computed = window.getComputedStyle(navbar);
+  // Only apply if the background has been overridden
+  if (computed.backgroundColor !== 'rgb(59, 142, 196)') {
+    navbar.style.setProperty('background', '#3B8EC4', 'important');
+    navbar.style.setProperty('background-color', '#3B8EC4', 'important');
   }
+}
 
-  /* Brand text in navbar */
-  .brand-text,
-  .navbar .brand-text,
-  .navbar-brand .brand-text {
-    color: #FFFFFF !important;
-  }
+function applyAllFixes() {
+  // Navbar
+  document.querySelectorAll('.navbar').forEach(el => {
+    el.style.setProperty('background', '#3B8EC4', 'important');
+    el.style.setProperty('background-color', '#3B8EC4', 'important');
+  });
 
-  /* Login button - force blue */
-  .login-form .btn-primary,
-  .login-form button.btn-primary,
-  .login-form button[type="submit"],
-  .login-card .btn-primary,
-  .login-page .btn-primary,
-  button.btn-primary.btn-full {
-    background: #3B8EC4 !important;
-    background-color: #3B8EC4 !important;
-    color: #FFFFFF !important;
-    border: none !important;
-  }
+  // Brand text
+  document.querySelectorAll('.brand-text').forEach(el => {
+    el.style.setProperty('color', '#FFFFFF', 'important');
+  });
 
-  /* All primary buttons */
-  .btn-primary,
-  button.btn-primary {
-    background: #3B8EC4 !important;
-    background-color: #3B8EC4 !important;
-    color: #FFFFFF !important;
-    border: none !important;
-  }
+  // Primary buttons
+  document.querySelectorAll('.btn-primary').forEach(el => {
+    el.style.setProperty('background', '#3B8EC4', 'important');
+    el.style.setProperty('background-color', '#3B8EC4', 'important');
+    el.style.setProperty('color', '#FFFFFF', 'important');
+    el.style.setProperty('border', 'none', 'important');
+  });
 
-  /* Active filter chips */
-  .filter-chip-active,
-  button.filter-chip-active,
-  .filter-chips .filter-chip-active {
-    background: #3B8EC4 !important;
-    background-color: #3B8EC4 !important;
-    border-color: #3B8EC4 !important;
-    color: #FFFFFF !important;
-  }
+  // Active filter chips
+  document.querySelectorAll('.filter-chip-active').forEach(el => {
+    el.style.setProperty('background', '#3B8EC4', 'important');
+    el.style.setProperty('background-color', '#3B8EC4', 'important');
+    el.style.setProperty('border-color', '#3B8EC4', 'important');
+    el.style.setProperty('color', '#FFFFFF', 'important');
+  });
 
-  /* Active nav tabs */
-  .nav-tab-active,
-  a.nav-tab-active,
-  .navbar-tab-bar .nav-tab-active {
-    color: #3B8EC4 !important;
-    border-bottom-color: #3B8EC4 !important;
-  }
+  // Active nav tabs
+  document.querySelectorAll('.nav-tab-active').forEach(el => {
+    el.style.setProperty('color', '#3B8EC4', 'important');
+    el.style.setProperty('border-bottom-color', '#3B8EC4', 'important');
+  });
 
-  /* Links */
-  .link-button,
-  button.link-button,
-  .device-link,
-  a.device-link,
-  .panel-link,
-  a.panel-link,
-  .rep-contact-link,
-  a.rep-contact-link {
-    color: #3B8EC4 !important;
-  }
-
-  /* Request rep buttons (outline style) */
-  .btn-request-rep-sm,
-  button.btn-request-rep-sm {
-    color: #3B8EC4 !important;
-    border-color: #3B8EC4 !important;
-  }
-
-  /* Logout confirm button */
-  .logout-confirm-yes,
-  button.logout-confirm-yes {
-    background: #EF4444 !important;
-    background-color: #EF4444 !important;
-    color: #FFFFFF !important;
-  }
-`;
-
-function injectGuard() {
-  // Remove existing if present to re-inject at end of head
-  const existing = document.getElementById(GUARD_ID);
-  if (existing) existing.remove();
-
-  const style = document.createElement('style');
-  style.id = GUARD_ID;
-  style.textContent = guardCSS;
-  // Append to end of head so it loads after everything else
-  document.head.appendChild(style);
+  // Logout confirm button
+  document.querySelectorAll('.logout-confirm-yes').forEach(el => {
+    el.style.setProperty('background', '#EF4444', 'important');
+    el.style.setProperty('background-color', '#EF4444', 'important');
+    el.style.setProperty('color', '#FFFFFF', 'important');
+  });
 }
 
 export default function KajabiStyleGuard() {
   useEffect(() => {
-    injectGuard();
+    // Apply immediately
+    applyAllFixes();
 
-    // Re-inject periodically for the first 15 seconds to beat late Kajabi CSS
-    const interval = setInterval(injectGuard, 1000);
-    const stopInterval = setTimeout(() => clearInterval(interval), 15000);
+    // Permanent check every 500ms — never stops
+    const interval = setInterval(applyNavbarFix, 500);
 
-    // Watch for Kajabi injecting new stylesheets into <head>
-    const observer = new MutationObserver((mutations) => {
-      for (const m of mutations) {
-        for (const node of m.addedNodes) {
-          if (node.tagName === 'STYLE' || node.tagName === 'LINK') {
-            // Kajabi added a new stylesheet — re-inject ours at the end
-            if (node.id !== GUARD_ID) {
-              injectGuard();
-            }
-          }
-        }
-      }
-    });
-    observer.observe(document.head, { childList: true });
-
-    // Also re-inject when the page becomes visible again (app reopen)
+    // Full re-apply when app comes back to foreground
     const handleVisibility = () => {
       if (document.visibilityState === 'visible') {
-        injectGuard();
-        // Re-inject a few more times after becoming visible
-        setTimeout(injectGuard, 100);
-        setTimeout(injectGuard, 500);
-        setTimeout(injectGuard, 1000);
-        setTimeout(injectGuard, 3000);
+        applyAllFixes();
+        setTimeout(applyAllFixes, 100);
+        setTimeout(applyAllFixes, 300);
+        setTimeout(applyAllFixes, 600);
+        setTimeout(applyAllFixes, 1000);
+        setTimeout(applyAllFixes, 2000);
+        setTimeout(applyAllFixes, 4000);
       }
     };
     document.addEventListener('visibilitychange', handleVisibility);
 
+    // Also listen for pageshow (fired when restoring from bfcache)
+    const handlePageShow = () => {
+      applyAllFixes();
+      setTimeout(applyAllFixes, 200);
+      setTimeout(applyAllFixes, 1000);
+    };
+    window.addEventListener('pageshow', handlePageShow);
+
+    // Also listen for focus (some WebViews fire this instead)
+    const handleFocus = () => {
+      applyAllFixes();
+      setTimeout(applyAllFixes, 200);
+      setTimeout(applyAllFixes, 1000);
+    };
+    window.addEventListener('focus', handleFocus);
+
     return () => {
       clearInterval(interval);
-      clearTimeout(stopInterval);
-      observer.disconnect();
       document.removeEventListener('visibilitychange', handleVisibility);
+      window.removeEventListener('pageshow', handlePageShow);
+      window.removeEventListener('focus', handleFocus);
     };
   }, []);
 
