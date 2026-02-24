@@ -161,6 +161,20 @@ export default function DeviceRepFinder() {
             ))}
           </select>
         </div>
+        {(selectedState || citySearch || selectedCompany || selectedProduct) && (
+          <button
+            className="btn-clear-filters"
+            onClick={() => {
+              setSelectedState('');
+              setCitySearch('');
+              setSelectedCompany('');
+              setSelectedProduct('');
+            }}
+            style={{ color: '#3B8EC4', background: 'none', border: 'none', fontSize: '13px', cursor: 'pointer', padding: '6px 0', marginTop: '4px' }}
+          >
+            Clear all filters
+          </button>
+        )}
       </section>
 
       {/* Results */}
