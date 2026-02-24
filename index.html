@@ -8,9 +8,108 @@
     <meta name="description" content="Medical device catalog and representative finder" />
     <link rel="apple-touch-icon" href="/icons/icon-192.png" />
     <title>ReadyRep</title>
+    <!-- Kajabi CSS Override Shield - loads before any external stylesheet -->
+    <style id="kajabi-shield">
+      .navbar,
+      div.navbar,
+      .app .navbar,
+      .navbar-wrapper .navbar,
+      .navbar-wrapper > .navbar,
+      div.navbar-wrapper div.navbar,
+      [class*="navbar"]:not(.navbar-tab-bar):not(.navbar-tab-bar-inner):not(.navbar-wrapper):not(.navbar-inner):not(.navbar-brand):not(.navbar-actions) {
+        background: #3B8EC4 !important;
+        background-color: #3B8EC4 !important;
+      }
+      .brand-text,
+      .navbar .brand-text,
+      .navbar-brand .brand-text {
+        color: #FFFFFF !important;
+      }
+      .btn-primary,
+      button.btn-primary,
+      .login-form .btn-primary,
+      .login-form button[type="submit"],
+      .login-page .btn-primary,
+      button.btn-primary.btn-full {
+        background: #3B8EC4 !important;
+        background-color: #3B8EC4 !important;
+        color: #FFFFFF !important;
+        border: none !important;
+      }
+      .filter-chip-active,
+      button.filter-chip-active,
+      .filter-chips .filter-chip-active {
+        background: #3B8EC4 !important;
+        background-color: #3B8EC4 !important;
+        border-color: #3B8EC4 !important;
+        color: #FFFFFF !important;
+      }
+      .nav-tab-active,
+      a.nav-tab-active,
+      .navbar-tab-bar .nav-tab-active {
+        color: #3B8EC4 !important;
+        border-bottom-color: #3B8EC4 !important;
+      }
+      .link-button, button.link-button,
+      .device-link, a.device-link,
+      .panel-link, a.panel-link,
+      .rep-contact-link, a.rep-contact-link {
+        color: #3B8EC4 !important;
+      }
+      .btn-request-rep-sm, button.btn-request-rep-sm {
+        color: #3B8EC4 !important;
+        border-color: #3B8EC4 !important;
+      }
+      .logout-confirm-yes, button.logout-confirm-yes {
+        background: #EF4444 !important;
+        background-color: #EF4444 !important;
+        color: #FFFFFF !important;
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <!-- Re-inject shield after all scripts to ensure it's last -->
+    <script>
+      (function() {
+        function reinject() {
+          var shield = document.getElementById('kajabi-shield');
+          if (shield) {
+            var clone = shield.cloneNode(true);
+            clone.id = 'kajabi-shield-end';
+            document.head.appendChild(clone);
+          }
+        }
+        // Re-inject after DOM is ready and on delays
+        reinject();
+        setTimeout(reinject, 500);
+        setTimeout(reinject, 2000);
+        setTimeout(reinject, 5000);
+        // Re-inject when app comes back to foreground
+        document.addEventListener('visibilitychange', function() {
+          if (document.visibilityState === 'visible') {
+            reinject();
+            setTimeout(reinject, 200);
+            setTimeout(reinject, 1000);
+            setTimeout(reinject, 3000);
+          }
+        });
+        // Watch for Kajabi injecting new stylesheets
+        var obs = new MutationObserver(function(mutations) {
+          for (var i = 0; i < mutations.length; i++) {
+            for (var j = 0; j < mutations[i].addedNodes.length; j++) {
+              var node = mutations[i].addedNodes[j];
+              if (node.tagName === 'STYLE' || node.tagName === 'LINK') {
+                if (node.id !== 'kajabi-shield' && node.id !== 'kajabi-shield-end') {
+                  reinject();
+                }
+              }
+            }
+          }
+        });
+        obs.observe(document.head, { childList: true });
+      })();
+    </script>
   </body>
 </html>
