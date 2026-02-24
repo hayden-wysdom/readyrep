@@ -29,13 +29,18 @@ function useForceChipStyles(containerRef, selected) {
       });
     };
     apply();
-    const t1 = setTimeout(apply, 100);
-    const t2 = setTimeout(apply, 500);
-    const t3 = setTimeout(apply, 1500);
+    const t1 = setTimeout(apply, 50);
+    const t2 = setTimeout(apply, 200);
+    const t3 = setTimeout(apply, 500);
+    const t4 = setTimeout(apply, 1000);
+    const t5 = setTimeout(apply, 2000);
+    const t6 = setTimeout(apply, 4000);
+    const interval = setInterval(apply, 500);
+    const stopInterval = setTimeout(() => clearInterval(interval), 10000);
     return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
+      clearTimeout(t1); clearTimeout(t2); clearTimeout(t3);
+      clearTimeout(t4); clearTimeout(t5); clearTimeout(t6);
+      clearInterval(interval); clearTimeout(stopInterval);
     };
   }, [selected]);
 }
