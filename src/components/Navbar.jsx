@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { LogOut, Settings, HelpCircle } from 'lucide-react';
+import { LogOut, HelpCircle } from 'lucide-react';
 
 export default function Navbar() {
   const { signOut, user } = useAuth();
@@ -24,15 +24,6 @@ export default function Navbar() {
               title="Support"
             >
               <HelpCircle size={18} />
-            </NavLink>
-            <NavLink
-              to="/admin"
-              className={({ isActive }) =>
-                `btn-icon ${isActive ? 'btn-icon-active' : ''}`
-              }
-              title="Admin"
-            >
-              <Settings size={18} />
             </NavLink>
             <span className="user-email">{user?.email}</span>
             <button className="btn-icon" onClick={() => setShowLogoutConfirm(true)} title="Sign out">

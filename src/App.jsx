@@ -3,7 +3,6 @@ import { useAuth } from './context/AuthContext';
 import Login from './pages/Login';
 import DeviceCatalog from './pages/DeviceCatalog';
 import DeviceRepFinder from './pages/DeviceRepFinder';
-import Admin from './pages/Admin';
 import Support from './pages/Support';
 import Navbar from './components/Navbar';
 import ScrollToTop from './components/ScrollToTop';
@@ -49,13 +48,7 @@ export default function App() {
             <DeviceRepFinder />
           </ProtectedRoute>
         } />
-        <Route path="/admin" element={
-          <ProtectedRoute>
-            <Navbar />
-            <Admin />
-          </ProtectedRoute>
-        } />
-        <Route path="/support" element={
+<Route path="/support" element={
           <ProtectedRoute>
             <Navbar />
             <Support />
