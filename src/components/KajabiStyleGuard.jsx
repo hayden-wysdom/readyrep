@@ -3,16 +3,11 @@ import { useEffect } from 'react';
 /**
  * KajabiStyleGuard
  *
- * Uses a MutationObserver to instantly react when Kajabi modifies
- * styles, plus a fast initial burst to prevent visible flickering.
+ * Uses a very fast interval on startup and resume to prevent
+ * visible flickering from Kajabi CSS overrides.
  */
 
-let applying = false;
-
 function applyFixes() {
-  if (applying) return;
-  applying = true;
-
   document.querySelectorAll('.rr-header-bar').forEach(el => {
     el.style.setProperty('background', '#3B8EC4', 'important');
     el.style.setProperty('background-color', '#3B8EC4', 'important');
@@ -51,76 +46,45 @@ function applyFixes() {
     el.style.setProperty('border-color', '#3B8EC4', 'important');
     el.style.setProperty('color', '#FFFFFF', 'important');
   });
+}
 
-  applying = false;
+function startBurst() {
+  applyFixes();
+  let count = 0;
+  const burst = setInterval(() => {
+    applyFixes();
+    count++;
+    if (count >= 100) clearInterval(burst);
+  }, 30);
+  return burst;
 }
 
 export default function KajabiStyleGuard() {
   useEffect(() => {
-    applyFixes();
+    // Fast burst: every 30ms for 3 seconds on mount
+    const burst = startBurst();
 
-    // Fast burst for the first 3 seconds (every 50ms) to prevent visible flicker
-    const fastInterval = setInterval(applyFixes, 50);
-    const slowDown = setTimeout(() => {
-      clearInterval(fastInterval);
-    }, 3000);
+    // Ongoing slower check every 1 second
+    const slow = setInterval(applyFixes, 1000);
 
-    // Then a slower ongoing interval
-    const slowInterval = setInterval(applyFixes, 1000);
-
-    // MutationObserver: instantly react when Kajabi modifies any element's style
-    const observer = new MutationObserver((mutations) => {
-      if (applying) return;
-      let needsFix = false;
-      for (const m of mutations) {
-        if (m.type === 'attributes' && m.attributeName === 'style') {
-          needsFix = true;
-          break;
-        }
-        if (m.type === 'childList' && m.addedNodes.length > 0) {
-          needsFix = true;
-          break;
-        }
-      }
-      if (needsFix) applyFixes();
-    });
-
-    // Observe the entire app for style changes and new elements
-    const appEl = document.querySelector('.app') || document.getElementById('root');
-    if (appEl) {
-      observer.observe(appEl, {
-        attributes: true,
-        attributeFilter: ['style', 'class'],
-        childList: true,
-        subtree: true,
-      });
-    }
-
-    // Re-apply when app returns to foreground
+    // Re-burst when app comes back to foreground
     const handleVisibility = () => {
       if (document.visibilityState === 'visible') {
-        // Fast burst again on resume
-        applyFixes();
-        let count = 0;
-        const burst = setInterval(() => {
-          applyFixes();
-          count++;
-          if (count >= 60) clearInterval(burst); // 3 seconds of 50ms
-        }, 50);
+        startBurst();
       }
     };
     document.addEventListener('visibilitychange', handleVisibility);
-    window.addEventListener('pageshow', applyFixes);
-    window.addEventListener('focus', applyFixes);
+
+    const handleResume = () => startBurst();
+    window.addEventListener('pageshow', handleResume);
+    window.addEventListener('focus', handleResume);
 
     return () => {
-      clearInterval(fastInterval);
-      clearTimeout(slowDown);
-      clearInterval(slowInterval);
-      observer.disconnect();
+      clearInterval(burst);
+      clearInterval(slow);
       document.removeEventListener('visibilitychange', handleVisibility);
-      window.removeEventListener('pageshow', applyFixes);
-      window.removeEventListener('focus', applyFixes);
+      window.removeEventListener('pageshow', handleResume);
+      window.removeEventListener('focus', handleResume);
     };
   }, []);
 
