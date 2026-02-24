@@ -93,7 +93,7 @@ export default function DeviceCatalog() {
   }, [devices, searchQuery, selectedCategory, selectedCompany, fuse]);
 
   return (
-    <main className="page-content">
+    <main className="page-content" style={{ width: '100%', maxWidth: '100%', overflowX: 'hidden' }}>
       {/* Partner Companies Section */}
       <section className="partner-section">
         <h2 className="section-title">Partner Companies</h2>

@@ -31,7 +31,7 @@ export default function App() {
   const { user, isRecovery } = useAuth();
 
   return (
-    <div className="app">
+    <div className="app" style={{ width: '100%', maxWidth: '100%', overflowX: 'hidden' }}>
       <ScrollToTop />
       <Routes>
         <Route path="/login" element={

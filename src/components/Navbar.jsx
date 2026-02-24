@@ -47,6 +47,9 @@ export default function Navbar() {
             className={({ isActive }) =>
               `nav-tab ${isActive ? 'nav-tab-active' : ''}`
             }
+            style={({ isActive }) =>
+              isActive ? { color: '#3B8EC4', borderBottomColor: '#3B8EC4' } : {}
+            }
           >
             Device Catalog
           </NavLink>
@@ -54,6 +57,9 @@ export default function Navbar() {
             to="/rep-finder"
             className={({ isActive }) =>
               `nav-tab ${isActive ? 'nav-tab-active' : ''}`
+            }
+            style={({ isActive }) =>
+              isActive ? { color: '#3B8EC4', borderBottomColor: '#3B8EC4' } : {}
             }
           >
             Device Rep Finder

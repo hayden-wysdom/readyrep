@@ -5,7 +5,7 @@
   padding: 0;
 }
 
-:root {
+:root, body, #root, .app {
   /* Primary - Sky blue matching MedicalWysdom */
   --blue-600: #3B8EC4;
   --blue-700: #2D7AAF;
@@ -32,6 +32,12 @@
   --shadow-sm: 0 1px 2px rgba(13,31,48,0.06);
   --shadow-md: 0 4px 6px -1px rgba(13,31,48,0.08), 0 2px 4px -2px rgba(13,31,48,0.04);
   --shadow-lg: 0 10px 15px -3px rgba(13,31,48,0.1), 0 4px 6px -4px rgba(13,31,48,0.05);
+}
+
+html, body, #root, .app {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
 }
 
 body {
@@ -71,11 +77,16 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
+  width: 100%;
+  overflow: hidden;
 }
 
 .navbar {
   background: #3B8EC4 !important;
+  background-color: #3B8EC4 !important;
   border-bottom: none;
+  width: 100%;
+  overflow: hidden;
 }
 
 .navbar-inner {
@@ -86,6 +97,8 @@ body {
   display: flex;
   align-items: center;
   gap: 32px;
+  width: 100%;
+  overflow: hidden;
 }
 
 .navbar-brand {
@@ -114,6 +127,8 @@ body {
 .navbar-tab-bar {
   background: var(--white);
   border-bottom: 1px solid var(--gray-200);
+  width: 100%;
+  overflow: hidden;
 }
 
 .navbar-tab-bar-inner {
@@ -180,6 +195,8 @@ body {
   max-width: 1280px;
   margin: 0 auto;
   padding: 24px;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .page-header {
@@ -336,15 +353,17 @@ body {
 }
 
 .filter-chip-active {
-  background: var(--blue-600);
-  border-color: var(--blue-600);
-  color: var(--white);
+  background: #3B8EC4 !important;
+  background-color: #3B8EC4 !important;
+  border-color: #3B8EC4 !important;
+  color: #FFFFFF !important;
 }
 
 .filter-chip-active:hover {
-  background: var(--blue-700);
-  border-color: var(--blue-700);
-  color: var(--white);
+  background: #2D7AAF !important;
+  background-color: #2D7AAF !important;
+  border-color: #2D7AAF !important;
+  color: #FFFFFF !important;
 }
 
 /* ===== Results ===== */

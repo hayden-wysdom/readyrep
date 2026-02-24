@@ -125,7 +125,7 @@ export default function Login() {
   // Show reset password form when arriving from email link
   if (isRecovery) {
     return (
-      <div className="login-page">
+      <div className="login-page" style={{ width: '100%', maxWidth: '100%', overflowX: 'hidden' }}>
         <div className="login-card">
           <div className="login-header">
             <div className="login-brand">
@@ -201,7 +201,7 @@ export default function Login() {
   }
 
   return (
-    <div className="login-page">
+    <div className="login-page" style={{ width: '100%', maxWidth: '100%', overflowX: 'hidden' }}>
       <div className="login-card">
         <div className="login-header">
           <div className="login-brand">
