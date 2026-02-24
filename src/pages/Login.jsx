@@ -1,7 +1,20 @@
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Eye, EyeOff } from 'lucide-react';
-import { btnPrimaryStyle, linkStyle } from '../lib/colors';
+import { linkStyle } from '../lib/colors';
+
+const loginBtnStyle = {
+  background: '#3B8EC4',
+  backgroundColor: '#3B8EC4',
+  color: '#FFFFFF',
+  border: 'none',
+  borderRadius: '8px',
+  padding: '10px 20px',
+  fontSize: '14px',
+  fontWeight: '600',
+  cursor: 'pointer',
+  width: '100%',
+};
 
 const US_STATES = [
   'Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut',
@@ -191,7 +204,7 @@ export default function Login() {
             <button
               type="submit"
               className="btn-primary btn-full"
-              style={btnPrimaryStyle}
+              style={loginBtnStyle}
               disabled={loading || !newPassword || !confirmPassword || newPassword !== confirmPassword}
             >
               {loading ? 'Updating...' : 'Update Password'}
@@ -384,7 +397,7 @@ export default function Login() {
           {error && <p className="form-error">{error}</p>}
           {message && <p className="form-success">{message}</p>}
 
-          <button type="submit" className="btn-primary btn-full" style={btnPrimaryStyle} disabled={loading}>
+          <button type="submit" className="btn-primary btn-full" style={loginBtnStyle} disabled={loading}>
             {loading
               ? 'Please wait...'
               : mode === 'forgot'
