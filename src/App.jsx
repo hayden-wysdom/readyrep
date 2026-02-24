@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
 import Login from './pages/Login';
@@ -29,6 +30,13 @@ function ProtectedRoute({ children }) {
 
 export default function App() {
   const { user, isRecovery } = useAuth();
+
+  // Hide the static HTML header placeholder and reset body background
+  useEffect(() => {
+    const staticHeader = document.getElementById('rr-static-header');
+    if (staticHeader) staticHeader.style.display = 'none';
+    document.body.style.backgroundColor = '#FFFFFF';
+  }, []);
 
   return (
     <div className="app" style={{ width: '100%', maxWidth: '100%', overflowX: 'hidden' }}>
