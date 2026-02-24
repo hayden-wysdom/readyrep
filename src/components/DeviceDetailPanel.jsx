@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { X, ExternalLink, Play } from 'lucide-react';
 import CompanyBadge from './CompanyBadge';
+import { btnPrimaryStyle, linkStyle, colors } from '../lib/colors';
 
 export default function DeviceDetailPanel({ device, onClose }) {
   // Close on Escape key
@@ -76,6 +77,7 @@ export default function DeviceDetailPanel({ device, onClose }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="panel-link"
+                  style={linkStyle}
                 >
                   View Full Specifications
                 </a>
@@ -90,6 +92,7 @@ export default function DeviceDetailPanel({ device, onClose }) {
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary btn-full panel-demo-btn"
+              style={btnPrimaryStyle}
             >
               <ExternalLink size={16} />
               View Product Demo & Resources

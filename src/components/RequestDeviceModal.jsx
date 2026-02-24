@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo, useRef } from 'react';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../context/AuthContext';
 import { X, CheckCircle } from 'lucide-react';
+import { btnPrimaryStyle } from '../lib/colors';
 
 export default function RequestDeviceModal({ onClose }) {
   const { user } = useAuth();
@@ -93,7 +94,7 @@ export default function RequestDeviceModal({ onClose }) {
             <CheckCircle size={48} />
             <h3>Request Submitted!</h3>
             <p>We'll look into adding this device to our catalog. You'll receive an email from our team in the next 24-48 hours.</p>
-            <button className="btn-primary" onClick={onClose}>
+            <button className="btn-primary" style={btnPrimaryStyle} onClick={onClose}>
               Close
             </button>
           </div>
@@ -203,7 +204,7 @@ export default function RequestDeviceModal({ onClose }) {
 
             <button
               type="submit"
-              className="btn-primary btn-full"
+              className="btn-primary btn-full" style={btnPrimaryStyle}
               disabled={submitting}
             >
               {submitting ? 'Submitting...' : 'Submit Request'}

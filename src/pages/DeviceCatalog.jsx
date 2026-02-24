@@ -8,6 +8,7 @@ import DeviceDetailPanel from '../components/DeviceDetailPanel';
 import CompanyBadge from '../components/CompanyBadge';
 import RequestDeviceModal from '../components/RequestDeviceModal';
 import { PackagePlus } from 'lucide-react';
+import { btnRequestRepSmStyle } from '../lib/colors';
 
 export default function DeviceCatalog() {
   const [devices, setDevices] = useState([]);
@@ -169,7 +170,7 @@ export default function DeviceCatalog() {
 
       {/* Request Device - bottom of page */}
       <div className="page-bottom-action">
-        <button className="btn-request-rep-sm" onClick={() => setShowRequestForm(true)}>
+        <button className="btn-request-rep-sm" style={btnRequestRepSmStyle} onClick={() => setShowRequestForm(true)}>
           <PackagePlus size={14} />
           Request a Device
         </button>

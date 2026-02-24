@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { supabase } from '../lib/supabase';
 import { ChevronDown, ChevronUp, Send, CheckCircle } from 'lucide-react';
+import { btnPrimaryStyle, colors } from '../lib/colors';
 
 const FAQ_ITEMS = [
   {
@@ -153,7 +154,7 @@ export default function Support() {
                 />
               </div>
               {submitError && <p className="form-error">{submitError}</p>}
-              <button type="submit" className="btn-primary btn-full" disabled={submitting}>
+              <button type="submit" className="btn-primary btn-full" style={btnPrimaryStyle} disabled={submitting}>
                 {submitting ? (
                   'Submitting...'
                 ) : (
@@ -175,6 +176,7 @@ export default function Support() {
             <div
               key={index}
               className={`support-faq-item ${openFaq === index ? 'support-faq-open' : ''}`}
+              style={openFaq === index ? { borderColor: colors.blue600 } : {}}
             >
               <button
                 className="support-faq-question"

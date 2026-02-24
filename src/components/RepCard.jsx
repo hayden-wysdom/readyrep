@@ -1,5 +1,6 @@
 import { MapPin, Mail, Phone } from 'lucide-react';
 import CompanyBadge from './CompanyBadge';
+import { linkStyle, colors } from '../lib/colors';
 
 const SPECIALTY_COLORS = {
   'Embolics': { bg: '#DBEAFE', text: '#1E40AF' },
@@ -23,7 +24,7 @@ export default function RepCard({ rep }) {
           {rep.avatar_url ? (
             <img src={rep.avatar_url} alt={rep.name} />
           ) : (
-            <span className="rep-avatar-initials">
+            <span className="rep-avatar-initials" style={{ color: colors.blue600 }}>
               {rep.name?.split(' ').map(n => n[0]).join('').slice(0, 2)}
             </span>
           )}
@@ -70,13 +71,13 @@ export default function RepCard({ rep }) {
 
       <div className="rep-contact">
         {rep.email && (
-          <a href={`mailto:${rep.email}`} className="rep-contact-link">
+          <a href={`mailto:${rep.email}`} className="rep-contact-link" style={linkStyle}>
             <Mail size={14} />
             <span>{rep.email}</span>
           </a>
         )}
         {rep.phone && (
-          <a href={`tel:${rep.phone}`} className="rep-contact-link">
+          <a href={`tel:${rep.phone}`} className="rep-contact-link" style={linkStyle}>
             <Phone size={14} />
             <span>{rep.phone}</span>
           </a>

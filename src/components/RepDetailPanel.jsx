@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { X, MapPin, Mail, Phone, Package } from 'lucide-react';
 import CompanyBadge from './CompanyBadge';
+import { linkStyle, colors } from '../lib/colors';
 
 const SPECIALTY_COLORS = {
   'Embolics': { bg: '#DBEAFE', text: '#1E40AF' },
@@ -49,7 +50,7 @@ export default function RepDetailPanel({ rep, onClose }) {
               {rep.avatar_url ? (
                 <img src={rep.avatar_url} alt={rep.name} />
               ) : (
-                <span className="rep-detail-initials">
+                <span className="rep-detail-initials" style={{ color: colors.blue600 }}>
                   {rep.name?.split(' ').map(n => n[0]).join('').slice(0, 2)}
                 </span>
               )}
@@ -72,7 +73,7 @@ export default function RepDetailPanel({ rep, onClose }) {
               <p className="rep-detail-state-label">{rep.state}</p>
               <div className="rep-detail-coverage-tags">
                 {coverageAreas.map((area, i) => (
-                  <span key={i} className="rep-detail-coverage-tag">{area}</span>
+                  <span key={i} className="rep-detail-coverage-tag" style={{ backgroundColor: colors.blue50, color: colors.blue600 }}>{area}</span>
                 ))}
               </div>
             </div>
@@ -104,13 +105,13 @@ export default function RepDetailPanel({ rep, onClose }) {
             <h3 className="rep-detail-box-title">Contact Information</h3>
             <div className="rep-detail-contact">
               {rep.email && (
-                <a href={`mailto:${rep.email}`} className="rep-detail-contact-item">
+                <a href={`mailto:${rep.email}`} className="rep-detail-contact-item" style={linkStyle}>
                   <Mail size={18} />
                   <span>{rep.email}</span>
                 </a>
               )}
               {rep.phone && (
-                <a href={`tel:${rep.phone}`} className="rep-detail-contact-item">
+                <a href={`tel:${rep.phone}`} className="rep-detail-contact-item" style={linkStyle}>
                   <Phone size={18} />
                   <span>{rep.phone}</span>
                 </a>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Eye, EyeOff } from 'lucide-react';
+import { btnPrimaryStyle, linkStyle } from '../lib/colors';
 
 const US_STATES = [
   'Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut',
@@ -190,6 +191,7 @@ export default function Login() {
             <button
               type="submit"
               className="btn-primary btn-full"
+              style={btnPrimaryStyle}
               disabled={loading || !newPassword || !confirmPassword || newPassword !== confirmPassword}
             >
               {loading ? 'Updating...' : 'Update Password'}
@@ -371,7 +373,7 @@ export default function Login() {
             <div className="forgot-password-row">
               <button
                 type="button"
-                className="link-button"
+                className="link-button" style={linkStyle}
                 onClick={() => switchMode('forgot')}
               >
                 Forgot Password?
@@ -382,7 +384,7 @@ export default function Login() {
           {error && <p className="form-error">{error}</p>}
           {message && <p className="form-success">{message}</p>}
 
-          <button type="submit" className="btn-primary btn-full" disabled={loading}>
+          <button type="submit" className="btn-primary btn-full" style={btnPrimaryStyle} disabled={loading}>
             {loading
               ? 'Please wait...'
               : mode === 'forgot'
@@ -397,21 +399,21 @@ export default function Login() {
           {mode === 'forgot' ? (
             <>
               Remember your password?{' '}
-              <button type="button" className="link-button" onClick={() => switchMode('signin')}>
+              <button type="button" className="link-button" style={linkStyle} onClick={() => switchMode('signin')}>
                 Back to Sign In
               </button>
             </>
           ) : mode === 'signup' ? (
             <>
               Already have an account?{' '}
-              <button type="button" className="link-button" onClick={() => switchMode('signin')}>
+              <button type="button" className="link-button" style={linkStyle} onClick={() => switchMode('signin')}>
                 Sign In
               </button>
             </>
           ) : (
             <>
               Don't have an account?{' '}
-              <button type="button" className="link-button" onClick={() => switchMode('signup')}>
+              <button type="button" className="link-button" style={linkStyle} onClick={() => switchMode('signup')}>
                 Sign Up
               </button>
             </>

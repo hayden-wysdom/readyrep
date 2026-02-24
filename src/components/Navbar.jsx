@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { LogOut, HelpCircle } from 'lucide-react';
+import { colors } from '../lib/colors';
 
 export default function Navbar() {
   const { signOut, user } = useAuth();
@@ -41,7 +42,7 @@ export default function Navbar() {
               <button className="logout-confirm-cancel" onClick={() => setShowLogoutConfirm(false)}>
                 Cancel
               </button>
-              <button className="logout-confirm-yes" onClick={signOut}>
+              <button className="logout-confirm-yes" style={{ background: colors.red500, backgroundColor: colors.red500, color: colors.white }} onClick={signOut}>
                 Yes, Logout
               </button>
             </div>

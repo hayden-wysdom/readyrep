@@ -1,5 +1,6 @@
 import { ExternalLink, Play } from 'lucide-react';
 import CompanyBadge from './CompanyBadge';
+import { linkStyle } from '../lib/colors';
 
 export default function DeviceCard({ device, onClick }) {
   return (
@@ -31,7 +32,7 @@ export default function DeviceCard({ device, onClick }) {
         <p className="device-description">{device.description}</p>
         <div className="device-card-links">
           {device.product_demo_url && (
-            <span className="device-link">
+            <span className="device-link" style={linkStyle}>
               <ExternalLink size={14} />
               Product Demo
             </span>

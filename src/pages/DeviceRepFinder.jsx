@@ -7,6 +7,7 @@ import RepCard from '../components/RepCard';
 import RepDetailPanel from '../components/RepDetailPanel';
 import RequestRepModal from '../components/RequestRepModal';
 import { UserPlus } from 'lucide-react';
+import { btnRequestRepStyle, btnRequestRepSmStyle } from '../lib/colors';
 
 export default function DeviceRepFinder() {
   const { user } = useAuth();
@@ -78,7 +79,7 @@ export default function DeviceRepFinder() {
   const cityFuse = useMemo(() => {
     return new Fuse(reps, {
       keys: ['city'],
-      threshold: 0.4,
+      threshold: 0.2,
       ignoreLocation: true,
     });
   }, [reps]);
@@ -112,7 +113,7 @@ export default function DeviceRepFinder() {
           Connect with industry representatives in your area to learn more about
           devices and schedule product demonstrations.
         </p>
-        <button className="btn-request-rep-sm" onClick={() => setShowRequestForm(true)}>
+        <button className="btn-request-rep-sm" style={btnRequestRepSmStyle} onClick={() => setShowRequestForm(true)}>
           <UserPlus size={14} />
           Request a Representative
         </button>
@@ -177,7 +178,7 @@ export default function DeviceRepFinder() {
         ) : filteredReps.length === 0 ? (
           <div className="empty-state">
             <p>No representatives found matching your criteria.</p>
-            <button className="btn-request-rep" onClick={() => setShowRequestForm(true)}>
+            <button className="btn-request-rep" style={btnRequestRepStyle} onClick={() => setShowRequestForm(true)}>
               <UserPlus size={18} />
               Request a Representative
             </button>
