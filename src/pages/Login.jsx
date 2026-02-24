@@ -34,18 +34,14 @@ function useForceButtonStyle(ref) {
       el.style.setProperty('opacity', el.disabled ? '0.6' : '1', 'important');
     };
     apply();
-    // Re-apply on a short delay to beat late-loading Kajabi CSS
+    // Re-apply on short delays to beat late-loading Kajabi CSS
     const t1 = setTimeout(apply, 100);
     const t2 = setTimeout(apply, 500);
     const t3 = setTimeout(apply, 1500);
-    // Also observe for attribute changes (Kajabi may modify style attr)
-    const observer = new MutationObserver(apply);
-    observer.observe(el, { attributes: true, attributeFilter: ['style', 'class'] });
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
       clearTimeout(t3);
-      observer.disconnect();
     };
   });
 }
