@@ -1,16 +1,39 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { LogOut, HelpCircle } from 'lucide-react';
 import { colors } from '../lib/colors';
 
+// Force navbar background via DOM to beat Kajabi !important overrides
+function useForceNavbarStyle(ref) {
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const apply = () => {
+      el.style.setProperty('background', '#3B8EC4', 'important');
+      el.style.setProperty('background-color', '#3B8EC4', 'important');
+    };
+    apply();
+    const t1 = setTimeout(apply, 100);
+    const t2 = setTimeout(apply, 500);
+    const t3 = setTimeout(apply, 1500);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+    };
+  });
+}
+
 export default function Navbar() {
   const { signOut, user } = useAuth();
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+  const navbarRef = useRef(null);
+  useForceNavbarStyle(navbarRef);
 
   return (
     <div className="navbar-wrapper">
-      <div className="navbar" style={{ background: '#3B8EC4', backgroundColor: '#3B8EC4' }}>
+      <div ref={navbarRef} className="navbar" style={{ background: '#3B8EC4', backgroundColor: '#3B8EC4' }}>
         <div className="navbar-inner">
           <div className="navbar-brand">
             <img src="/logo.png" alt="ReadyRep" className="brand-logo" />
