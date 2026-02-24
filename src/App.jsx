@@ -6,6 +6,7 @@ import DeviceRepFinder from './pages/DeviceRepFinder';
 import Admin from './pages/Admin';
 import Support from './pages/Support';
 import Navbar from './components/Navbar';
+import ScrollToTop from './components/ScrollToTop';
 
 function ProtectedRoute({ children }) {
   const { user, loading, isRecovery } = useAuth();
@@ -31,6 +32,7 @@ export default function App() {
 
   return (
     <div className="app">
+      <ScrollToTop />
       <Routes>
         <Route path="/login" element={
           user && !isRecovery ? <Navigate to="/" replace /> : <Login />
