@@ -9,25 +9,25 @@ export default function Navbar() {
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   return (
-    <div className="navbar-wrapper">
-      <div className="navbar" style={{ background: '#3B8EC4', backgroundColor: '#3B8EC4' }}>
-        <div className="navbar-inner">
-          <div className="navbar-brand">
+    <div className="rr-header-wrap">
+      <div className="rr-header-bar" style={{ background: '#3B8EC4', backgroundColor: '#3B8EC4' }}>
+        <div className="rr-header-inner">
+          <div className="rr-header-brand">
             <img src="/logo.png" alt="ReadyRep" className="brand-logo" />
             <span className="brand-text" style={{ color: '#FFFFFF' }}>ReadyRep</span>
           </div>
-          <div className="navbar-actions">
+          <div className="rr-header-actions">
             <NavLink
               to="/support"
               className={({ isActive }) =>
-                `btn-icon ${isActive ? 'btn-icon-active' : ''}`
+                `rr-icon-btn ${isActive ? 'rr-icon-btn-active' : ''}`
               }
               title="Support"
             >
               <HelpCircle size={18} />
             </NavLink>
-            <span className="user-email">{user?.email}</span>
-            <button className="btn-icon" onClick={() => setShowLogoutConfirm(true)} title="Sign out">
+            <span className="rr-user-email">{user?.email}</span>
+            <button className="rr-icon-btn" onClick={() => setShowLogoutConfirm(true)} title="Sign out">
               <LogOut size={18} />
             </button>
           </div>
@@ -49,13 +49,13 @@ export default function Navbar() {
           </div>
         </div>
       )}
-      <div className="navbar-tab-bar">
-        <div className="navbar-tab-bar-inner">
+      <div className="rr-header-tabs">
+        <div className="rr-header-tabs-inner">
           <NavLink
             to="/"
             end
             className={({ isActive }) =>
-              `nav-tab ${isActive ? 'nav-tab-active' : ''}`
+              `rr-tab ${isActive ? 'rr-tab-active' : ''}`
             }
             style={({ isActive }) =>
               isActive ? { color: '#3B8EC4', borderBottomColor: '#3B8EC4' } : {}
@@ -66,7 +66,7 @@ export default function Navbar() {
           <NavLink
             to="/rep-finder"
             className={({ isActive }) =>
-              `nav-tab ${isActive ? 'nav-tab-active' : ''}`
+              `rr-tab ${isActive ? 'rr-tab-active' : ''}`
             }
             style={({ isActive }) =>
               isActive ? { color: '#3B8EC4', borderBottomColor: '#3B8EC4' } : {}

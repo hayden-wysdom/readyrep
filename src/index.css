@@ -73,7 +73,7 @@ body {
 }
 
 /* ===== Navbar ===== */
-.navbar-wrapper {
+.rr-header-wrap {
   position: sticky;
   top: 0;
   z-index: 100;
@@ -81,7 +81,7 @@ body {
   overflow: hidden;
 }
 
-.navbar {
+.rr-header-bar {
   background: #3B8EC4 !important;
   background-color: #3B8EC4 !important;
   border-bottom: none;
@@ -89,7 +89,7 @@ body {
   overflow: hidden;
 }
 
-.navbar-inner {
+.rr-header-inner {
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 24px;
@@ -101,7 +101,7 @@ body {
   overflow: hidden;
 }
 
-.navbar-brand {
+.rr-header-brand {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -124,18 +124,18 @@ body {
   color: var(--white);
 }
 
-.navbar-tab-bar {
+.rr-header-tabs {
   background: var(--white);
   border-bottom: 1px solid var(--gray-200);
   width: 100%;
   overflow: hidden;
 }
 
-.navbar-tab-bar-inner {
+.rr-header-tabs-inner {
   display: flex;
 }
 
-.nav-tab {
+.rr-tab {
   flex: 1;
   padding: 12px 20px;
   text-decoration: none;
@@ -149,29 +149,29 @@ body {
   text-align: center;
 }
 
-.nav-tab:hover {
+.rr-tab:hover {
   color: var(--gray-700);
   background: var(--gray-50);
 }
 
-.nav-tab-active {
+.rr-tab-active {
   color: var(--blue-600);
   border-bottom-color: var(--blue-600);
 }
 
-.navbar-actions {
+.rr-header-actions {
   margin-left: auto;
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-.user-email {
+.rr-user-email {
   font-size: 13px;
   color: rgba(255, 255, 255, 0.7);
 }
 
-.btn-icon {
+.rr-icon-btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -185,7 +185,7 @@ body {
   transition: all 0.15s;
 }
 
-.btn-icon:hover {
+.rr-icon-btn:hover {
   background: rgba(255, 255, 255, 0.2);
   color: var(--white);
 }
@@ -398,11 +398,11 @@ body {
   .search-row, .filter-row {
     flex-direction: column;
   }
-  .navbar-inner {
+  .rr-header-inner {
     padding: 0 16px;
     gap: 16px;
   }
-  .user-email {
+  .rr-user-email {
     display: none;
   }
 }
@@ -1976,7 +1976,7 @@ body {
 }
 
 /* Admin nav icon active state */
-.btn-icon-active {
+.rr-icon-btn-active {
   background: rgba(255, 255, 255, 0.25);
   color: var(--white);
   border-color: rgba(255, 255, 255, 0.4);
