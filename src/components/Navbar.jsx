@@ -7,11 +7,11 @@ export default function Navbar() {
 
   return (
     <header className="navbar-wrapper">
-      <nav className="navbar">
+      <nav className="navbar" style={{ background: '#3B8EC4' }}>
         <div className="navbar-inner">
           <div className="navbar-brand">
             <img src="/logo.png" alt="ReadyRep" className="brand-logo" />
-            <span className="brand-text">ReadyRep</span>
+            <span className="brand-text" style={{ color: '#FFFFFF' }}>ReadyRep</span>
           </div>
           <div className="navbar-actions">
             <NavLink
