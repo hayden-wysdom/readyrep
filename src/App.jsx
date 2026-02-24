@@ -6,6 +6,7 @@ import DeviceRepFinder from './pages/DeviceRepFinder';
 import Support from './pages/Support';
 import Navbar from './components/Navbar';
 import ScrollToTop from './components/ScrollToTop';
+import KajabiStyleGuard from './components/KajabiStyleGuard';
 
 function ProtectedRoute({ children }) {
   const { user, loading, isRecovery } = useAuth();
@@ -31,6 +32,7 @@ export default function App() {
 
   return (
     <div className="app" style={{ width: '100%', maxWidth: '100%', overflowX: 'hidden' }}>
+      <KajabiStyleGuard />
       <ScrollToTop />
       <Routes>
         <Route path="/login" element={
