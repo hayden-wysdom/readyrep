@@ -70,46 +70,5 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
-    <!-- Re-inject shield after all scripts to ensure it's last -->
-    <script>
-      (function() {
-        function reinject() {
-          var shield = document.getElementById('kajabi-shield');
-          if (shield) {
-            var clone = shield.cloneNode(true);
-            clone.id = 'kajabi-shield-end';
-            document.head.appendChild(clone);
-          }
-        }
-        // Re-inject after DOM is ready and on delays
-        reinject();
-        setTimeout(reinject, 500);
-        setTimeout(reinject, 2000);
-        setTimeout(reinject, 5000);
-        // Re-inject when app comes back to foreground
-        document.addEventListener('visibilitychange', function() {
-          if (document.visibilityState === 'visible') {
-            reinject();
-            setTimeout(reinject, 200);
-            setTimeout(reinject, 1000);
-            setTimeout(reinject, 3000);
-          }
-        });
-        // Watch for Kajabi injecting new stylesheets
-        var obs = new MutationObserver(function(mutations) {
-          for (var i = 0; i < mutations.length; i++) {
-            for (var j = 0; j < mutations[i].addedNodes.length; j++) {
-              var node = mutations[i].addedNodes[j];
-              if (node.tagName === 'STYLE' || node.tagName === 'LINK') {
-                if (node.id !== 'kajabi-shield' && node.id !== 'kajabi-shield-end') {
-                  reinject();
-                }
-              }
-            }
-          }
-        });
-        obs.observe(document.head, { childList: true });
-      })();
-    </script>
   </body>
 </html>
