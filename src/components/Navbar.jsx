@@ -6,8 +6,8 @@ export default function Navbar() {
   const { signOut, user } = useAuth();
 
   return (
-    <header className="navbar-wrapper">
-      <nav className="navbar" style={{ background: '#3B8EC4' }}>
+    <div className="navbar-wrapper">
+      <div className="navbar" style={{ background: '#3B8EC4', backgroundColor: '#3B8EC4' }}>
         <div className="navbar-inner">
           <div className="navbar-brand">
             <img src="/logo.png" alt="ReadyRep" className="brand-logo" />
@@ -38,7 +38,7 @@ export default function Navbar() {
             </button>
           </div>
         </div>
-      </nav>
+      </div>
       <div className="navbar-tab-bar">
         <div className="navbar-tab-bar-inner">
           <NavLink
@@ -60,6 +60,6 @@ export default function Navbar() {
           </NavLink>
         </div>
       </div>
-    </header>
+    </div>
   );
 }
