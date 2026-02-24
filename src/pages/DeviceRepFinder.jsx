@@ -97,8 +97,8 @@ export default function DeviceRepFinder() {
         !selectedCompany || rep.company_id === selectedCompany;
       const matchesProduct =
         !selectedProduct ||
-        rep.specialties?.some(s =>
-          s.toLowerCase().includes(selectedProduct.toLowerCase())
+        rep.devices?.some(d =>
+          d.toLowerCase() === selectedProduct.toLowerCase()
         );
       return matchesState && matchesCompany && matchesProduct;
     });
