@@ -898,6 +898,74 @@ body {
   padding: 24px 0 40px;
 }
 
+/* ===== Logout Confirmation ===== */
+.logout-confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 300;
+  padding: 20px;
+}
+
+.logout-confirm-modal {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  width: 100%;
+  max-width: 340px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.logout-confirm-text {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--gray-800);
+  margin-bottom: 20px;
+}
+
+.logout-confirm-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.logout-confirm-cancel {
+  flex: 1;
+  padding: 10px 16px;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  background: var(--white);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-600);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.logout-confirm-cancel:hover {
+  background: var(--gray-50);
+}
+
+.logout-confirm-yes {
+  flex: 1;
+  padding: 10px 16px;
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--red-500);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--white);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.logout-confirm-yes:hover {
+  background: #DC2626;
+}
+
 /* ===== Request Rep Modal ===== */
 .request-rep-overlay {
   position: fixed;

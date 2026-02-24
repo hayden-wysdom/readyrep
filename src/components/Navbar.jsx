@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { LogOut, Settings, HelpCircle } from 'lucide-react';
 
 export default function Navbar() {
   const { signOut, user } = useAuth();
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   return (
     <div className="navbar-wrapper">
@@ -33,12 +35,28 @@ export default function Navbar() {
               <Settings size={18} />
             </NavLink>
             <span className="user-email">{user?.email}</span>
-            <button className="btn-icon" onClick={signOut} title="Sign out">
+            <button className="btn-icon" onClick={() => setShowLogoutConfirm(true)} title="Sign out">
               <LogOut size={18} />
             </button>
           </div>
         </div>
       </div>
+
+      {showLogoutConfirm && (
+        <div className="logout-confirm-overlay" onClick={() => setShowLogoutConfirm(false)}>
+          <div className="logout-confirm-modal" onClick={(e) => e.stopPropagation()}>
+            <p className="logout-confirm-text">Are you sure you want to logout?</p>
+            <div className="logout-confirm-actions">
+              <button className="logout-confirm-cancel" onClick={() => setShowLogoutConfirm(false)}>
+                Cancel
+              </button>
+              <button className="logout-confirm-yes" onClick={signOut}>
+                Yes, Logout
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="navbar-tab-bar">
         <div className="navbar-tab-bar-inner">
           <NavLink
