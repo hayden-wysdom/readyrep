@@ -14,7 +14,7 @@ export default function Navbar() {
         <div className="rr-header-inner">
           <div className="rr-header-brand">
             <img src="/logo.png" alt="ReadyRep" className="brand-logo" />
-            <span className="brand-text" style={{ color: '#FFFFFF' }}>ReadyRep</span>
+            <span className="brand-text" style={{ color: '#FFFFFF' }}>ReadyRep (Beta)</span>
           </div>
           <div className="rr-header-actions">
             <NavLink

@@ -184,7 +184,7 @@ export default function Login() {
           <div className="login-header">
             <div className="login-brand">
               <img src="/logo.png" alt="ReadyRep" className="brand-logo brand-logo-lg" />
-              <h1>ReadyRep</h1>
+              <h1>ReadyRep (Beta)</h1>
             </div>
             <p className="login-subtitle">Set Your New Password</p>
           </div>
@@ -262,7 +262,7 @@ export default function Login() {
         <div className="login-header">
           <div className="login-brand">
             <img src="/logo.png" alt="ReadyRep" className="brand-logo brand-logo-lg" />
-            <h1>ReadyRep</h1>
+            <h1>ReadyRep (Beta)</h1>
           </div>
           <p className="login-subtitle">Industry Professional Module</p>
         </div>
