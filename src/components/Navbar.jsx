@@ -13,8 +13,8 @@ export default function Navbar() {
       <div className="rr-header-bar" style={{ background: '#3B8EC4', backgroundColor: '#3B8EC4' }}>
         <div className="rr-header-inner">
           <div className="rr-header-brand">
-            <img src="/logo.png" alt="ReadyRep" className="brand-logo" />
-            <span className="brand-text" style={{ color: '#FFFFFF' }}>ReadyRep (Beta)</span>
+            <img src="/logo.png" alt="DeviceWyze" className="brand-logo" />
+            <span className="brand-text" style={{ color: '#FFFFFF' }}>DeviceWyze (Beta)</span>
           </div>
           <div className="rr-header-actions">
             <NavLink

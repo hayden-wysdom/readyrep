@@ -8,6 +8,7 @@ const corsHeaders = {
 };
 
 serve(async (req) => {
+  // Handle CORS preflight
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
   }
@@ -15,6 +16,7 @@ serve(async (req) => {
   try {
     const { name, email, subject, message } = await req.json();
 
+    // Validate required fields
     if (!name || !email || !subject || !message) {
       return new Response(
         JSON.stringify({ error: "All fields are required" }),
@@ -22,6 +24,7 @@ serve(async (req) => {
       );
     }
 
+    // Map subject values to readable labels
     const subjectLabels: Record<string, string> = {
       general: "General Inquiry",
       account: "Account Issue",
@@ -33,6 +36,7 @@ serve(async (req) => {
 
     const subjectLabel = subjectLabels[subject] || subject;
 
+    // Send email via Resend
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
@@ -40,10 +44,10 @@ serve(async (req) => {
         Authorization: `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "ReadyRep Support <support@medicalwysdom.ai>",
+        from: "DeviceWyze Support <support@medicalwysdom.ai>",
         to: ["customer_support@medicalwysdom.ai"],
         reply_to: email,
-        subject: `[ReadyRep Support] ${subjectLabel} - from ${name}`,
+        subject: `[DeviceWyze Support] ${subjectLabel} - from ${name}`,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <div style="background: #3B8EC4; padding: 20px; border-radius: 8px 8px 0 0;">
@@ -69,7 +73,7 @@ serve(async (req) => {
               <p style="color: #4b5563; line-height: 1.6; white-space: pre-wrap;">${message}</p>
             </div>
             <p style="color: #9ca3af; font-size: 12px; text-align: center; margin-top: 16px;">
-              Sent from ReadyRep Support Portal
+              Sent from DeviceWyze Support Portal
             </p>
           </div>
         `,

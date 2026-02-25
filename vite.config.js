@@ -9,8 +9,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'robots.txt'],
       manifest: {
-        name: 'ReadyRep',
-        short_name: 'ReadyRep',
+        name: 'DeviceWyze',
+        short_name: 'DeviceWyze',
         description: 'Medical device catalog and representative finder',
         theme_color: '#3B8EC4',
         background_color: '#EEF5FA',

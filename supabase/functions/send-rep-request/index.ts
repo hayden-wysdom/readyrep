@@ -29,10 +29,10 @@ serve(async (req) => {
         Authorization: `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "ReadyRep <support@medicalwysdom.ai>",
+        from: "DeviceWyze <support@medicalwysdom.ai>",
         to: ["customer_support@medicalwysdom.ai"],
         reply_to: email,
-        subject: `[ReadyRep] Representative Request - ${company} - from ${fullName}`,
+        subject: `[DeviceWyze] Representative Request - ${company} - from ${fullName}`,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <div style="background: #3B8EC4; padding: 20px; border-radius: 8px 8px 0 0;">
@@ -62,7 +62,7 @@ serve(async (req) => {
               <p style="color: #4b5563; line-height: 1.6; white-space: pre-wrap;">${deviceDescription}</p>
             </div>
             <p style="color: #9ca3af; font-size: 12px; text-align: center; margin-top: 16px;">
-              Sent from ReadyRep - Representative Request Form
+              Sent from DeviceWyze - Representative Request Form
             </p>
           </div>
         `,
