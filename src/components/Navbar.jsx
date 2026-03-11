@@ -1,12 +1,9 @@
-import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { LogOut, HelpCircle } from 'lucide-react';
-import { colors } from '../lib/colors';
+import { HelpCircle } from 'lucide-react';
 
 export default function Navbar() {
-  const { signOut, user } = useAuth();
-  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+  const { user } = useAuth();
 
   return (
     <div className="rr-header-wrap">
@@ -27,28 +24,10 @@ export default function Navbar() {
               <HelpCircle size={18} />
             </NavLink>
             <span className="rr-user-email">{user?.email}</span>
-            <button className="rr-icon-btn" onClick={() => setShowLogoutConfirm(true)} title="Sign out">
-              <LogOut size={18} />
-            </button>
           </div>
         </div>
       </div>
 
-      {showLogoutConfirm && (
-        <div className="logout-confirm-overlay" onClick={() => setShowLogoutConfirm(false)}>
-          <div className="logout-confirm-modal" onClick={(e) => e.stopPropagation()}>
-            <p className="logout-confirm-text">Are you sure you want to logout?</p>
-            <div className="logout-confirm-actions">
-              <button className="logout-confirm-cancel" onClick={() => setShowLogoutConfirm(false)}>
-                Cancel
-              </button>
-              <button className="logout-confirm-yes" style={{ background: colors.red500, backgroundColor: colors.red500, color: colors.white }} onClick={signOut}>
-                Yes, Logout
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
       <div className="rr-header-tabs">
         <div className="rr-header-tabs-inner">
           <NavLink
