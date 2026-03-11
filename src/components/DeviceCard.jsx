@@ -26,7 +26,7 @@ export default function DeviceCard({ device, onClick }) {
         )}
       </div>
       <div className="device-card-body">
-        <CompanyBadge company={device.companies?.name || device.company_name} />
+        <CompanyBadge company={device.dw_companies?.name || device.company_name} />
         <h3 className="device-name">{device.name}</h3>
         <p className="device-category">{device.category}</p>
         <p className="device-description">{device.description}</p>

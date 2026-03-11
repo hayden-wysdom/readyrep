@@ -31,7 +31,7 @@ export default function RepCard({ rep }) {
         </div>
         <div className="rep-info">
           <h3 className="rep-name">{rep.name}</h3>
-          <CompanyBadge company={rep.companies?.name || rep.company_name} />
+          <CompanyBadge company={rep.dw_companies?.name || rep.company_name} />
         </div>
       </div>
 

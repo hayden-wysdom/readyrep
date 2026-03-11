@@ -34,8 +34,8 @@ export default function DeviceRepFinder() {
   const fetchReps = async () => {
     setLoading(true);
     const { data, error } = await supabase
-      .from('representatives')
-      .select('*, companies(name)')
+      .from('dw_representatives')
+      .select('*, dw_companies(name)')
       .order('name');
     if (!error && data) setReps(data);
     setLoading(false);
@@ -43,7 +43,7 @@ export default function DeviceRepFinder() {
 
   const fetchCompanies = async () => {
     const { data, error } = await supabase
-      .from('companies')
+      .from('dw_companies')
       .select('*')
       .order('name');
     if (!error && data) setCompanies(data);
@@ -51,7 +51,7 @@ export default function DeviceRepFinder() {
 
   const fetchProducts = async () => {
     const { data, error } = await supabase
-      .from('devices')
+      .from('dw_devices')
       .select('id, name')
       .order('name');
     if (!error && data) setProducts(data);
@@ -59,7 +59,7 @@ export default function DeviceRepFinder() {
 
   const handleRepClick = async (rep) => {
     const { data: devices } = await supabase
-      .from('devices')
+      .from('dw_devices')
       .select('id, name, image_url, category')
       .eq('company_id', rep.company_id)
       .order('name');

@@ -35,7 +35,7 @@ export default function DeviceDetailPanel({ device, onClose }) {
           {/* Device name & badges */}
           <h2 className="panel-title">{device.name}</h2>
           <div className="panel-badges">
-            <CompanyBadge company={device.companies?.name || device.company_name} />
+            <CompanyBadge company={device.dw_companies?.name || device.company_name} />
             {device.category && (
               <span className="panel-category-tag">{device.category}</span>
             )}

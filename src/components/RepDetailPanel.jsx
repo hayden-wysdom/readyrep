@@ -58,7 +58,7 @@ export default function RepDetailPanel({ rep, onClose }) {
             <div className="rep-detail-name-section">
               <h2 className="panel-title">{rep.name}</h2>
               <div className="panel-badges">
-                <CompanyBadge company={rep.companies?.name || rep.company_name} />
+                <CompanyBadge company={rep.dw_companies?.name || rep.company_name} />
               </div>
             </div>
           </div>

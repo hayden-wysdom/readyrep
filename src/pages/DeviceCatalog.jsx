@@ -27,7 +27,7 @@ export default function DeviceCatalog() {
 
   const fetchCompanies = async () => {
     const { data, error } = await supabase
-      .from('companies')
+      .from('dw_companies')
       .select('*')
       .order('name');
     if (!error && data) setCompanies(data);
@@ -36,8 +36,8 @@ export default function DeviceCatalog() {
   const fetchDevices = async () => {
     setLoading(true);
     const { data, error } = await supabase
-      .from('devices')
-      .select('*, companies(name)')
+      .from('dw_devices')
+      .select('*, dw_companies(name)')
       .order('name');
     if (!error && data) setDevices(data);
     setLoading(false);
@@ -46,7 +46,7 @@ export default function DeviceCatalog() {
   const handleDeviceClick = async (device) => {
     // Fetch videos for this device
     const { data: videos } = await supabase
-      .from('device_videos')
+      .from('dw_device_videos')
       .select('*')
       .eq('device_id', device.id)
       .order('created_at');

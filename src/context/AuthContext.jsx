@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import { supabase } from '../lib/supabase';
 
 const AuthContext = createContext({});
 
@@ -13,16 +14,29 @@ export function AuthProvider({ children }) {
     // Request user data from parent window
     window.parent.postMessage({ type: 'WYSDOM_REQUEST_USER_DATA' }, '*');
 
-    // Listen for user data from parent window
-    const handleMessage = (event) => {
+    // Listen for user data + session token from parent window
+    const handleMessage = async (event) => {
       if (event.data?.type === 'WYSDOM_USER_DATA') {
         const payload = event.data.payload;
+
+        // If parent sent a session token, set it in the Supabase client
+        // This allows RLS policies (TO authenticated) to work
+        if (payload.access_token && payload.refresh_token) {
+          try {
+            await supabase.auth.setSession({
+              access_token: payload.access_token,
+              refresh_token: payload.refresh_token,
+            });
+          } catch (err) {
+            console.error('Failed to set Supabase session:', err);
+          }
+        }
 
         // Split full_name into first_name and last_name
         const [firstName, ...lastNameParts] = (payload.full_name || '').split(' ');
         const lastName = lastNameParts.join(' ');
 
-        // Create mock user object matching Supabase user format
+        // Create user object matching Supabase user format
         const mockUser = {
           id: payload.id,
           email: payload.email,
@@ -30,9 +44,9 @@ export function AuthProvider({ children }) {
             first_name: firstName || '',
             last_name: lastName || '',
             specialty: payload.specialty || '',
-            npi: '', // Not provided by parent, leave empty
-            practice_city: payload.institution || '', // Map institution to practice_city
-            practice_state: '', // Not provided by parent, leave empty
+            npi: '',
+            practice_city: payload.institution || '',
+            practice_state: '',
           }
         };
 

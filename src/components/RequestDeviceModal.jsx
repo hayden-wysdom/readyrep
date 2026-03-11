@@ -27,7 +27,7 @@ export default function RequestDeviceModal({ onClose }) {
 
   useEffect(() => {
     const fetchCompanies = async () => {
-      const { data } = await supabase.from('companies').select('*').order('name');
+      const { data } = await supabase.from('dw_companies').select('*').order('name');
       if (data) setCompanies(data);
     };
     fetchCompanies();

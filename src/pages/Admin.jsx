@@ -32,10 +32,10 @@ export default function Admin() {
 
   const fetchAll = async () => {
     const [devRes, repRes, vidRes, compRes] = await Promise.all([
-      supabase.from('devices').select('*, companies(name)').order('name'),
-      supabase.from('representatives').select('*, companies(name)').order('name'),
-      supabase.from('device_videos').select('*, devices(name)').order('title'),
-      supabase.from('companies').select('*').order('name'),
+      supabase.from('dw_devices').select('*, dw_companies(name)').order('name'),
+      supabase.from('dw_representatives').select('*, dw_companies(name)').order('name'),
+      supabase.from('dw_device_videos').select('*, dw_devices(name)').order('title'),
+      supabase.from('dw_companies').select('*').order('name'),
     ]);
     if (devRes.data) setDevices(devRes.data);
     if (repRes.data) setReps(repRes.data);
@@ -114,7 +114,7 @@ export default function Admin() {
               id={device.id}
               type="device"
               title={device.name}
-              subtitle={device.companies?.name || ''}
+              subtitle={device.dw_companies?.name || ''}
               currentImage={device.image_url}
               uploading={uploading[`device-${device.id}`]}
               success={success[`device-${device.id}`]}
@@ -134,7 +134,7 @@ export default function Admin() {
               id={rep.id}
               type="rep"
               title={rep.name}
-              subtitle={rep.companies?.name || ''}
+              subtitle={rep.dw_companies?.name || ''}
               currentImage={rep.avatar_url}
               isAvatar
               uploading={uploading[`rep-${rep.id}`]}
@@ -155,7 +155,7 @@ export default function Admin() {
               id={video.id}
               type="video"
               title={video.title}
-              subtitle={video.devices?.name || ''}
+              subtitle={video.dw_devices?.name || ''}
               currentImage={video.thumbnail_url}
               uploading={uploading[`video-${video.id}`]}
               success={success[`video-${video.id}`]}

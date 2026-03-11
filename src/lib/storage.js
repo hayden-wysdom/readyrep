@@ -1,6 +1,6 @@
 import { supabase } from './supabase';
 
-const SUPABASE_URL = 'https://luoxyuddebfovbdmaxhj.supabase.co';
+const SUPABASE_URL = 'https://ivmotsqairwwkxmntqaw.supabase.co';
 
 /**
  * Normalize file extension (e.g. .jpeg -> .jpg)
@@ -81,7 +81,7 @@ export async function uploadDeviceImage(deviceId, file) {
   const url = await uploadImage('device-images', file, path);
 
   const { error } = await supabase
-    .from('devices')
+    .from('dw_devices')
     .update({ image_url: url })
     .eq('id', deviceId);
 
@@ -101,7 +101,7 @@ export async function uploadRepAvatar(repId, file) {
   const url = await uploadImage('rep-avatars', file, path);
 
   const { error } = await supabase
-    .from('representatives')
+    .from('dw_representatives')
     .update({ avatar_url: url })
     .eq('id', repId);
 
@@ -121,7 +121,7 @@ export async function uploadVideoThumbnail(videoId, file) {
   const url = await uploadImage('video-thumbnails', file, path);
 
   const { error } = await supabase
-    .from('device_videos')
+    .from('dw_device_videos')
     .update({ thumbnail_url: url })
     .eq('id', videoId);
 
@@ -141,7 +141,7 @@ export async function uploadCompanyLogo(companyId, file) {
   const url = await uploadImage('company-logos', file, path);
 
   const { error } = await supabase
-    .from('companies')
+    .from('dw_companies')
     .update({ logo_url: url })
     .eq('id', companyId);
 
